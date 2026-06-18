@@ -203,11 +203,11 @@ Status legend: `[ ]` not started · `[~]` in progress · `[x]` done.
 
 ### Phase 5 — PDF
 
-- [ ] Merge PDF
-- [ ] Split PDF
-- [ ] Compress PDF
-- [ ] Rotate Pages
-- [ ] Extract Pages
+- [x] Merge PDF
+- [x] Split PDF
+- [x] Compress PDF (structural optimization only — see note in the tool)
+- [x] Rotate Pages
+- [x] Extract Pages
 
 ### Phase 6 — Security
 
