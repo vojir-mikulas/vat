@@ -1,0 +1,33 @@
+{
+  "category": {
+    "text": "Text",
+    "developer": "Developer",
+    "images": "Images",
+    "video": "Video",
+    "audio": "Audio",
+    "files": "Files",
+    "pdf": "PDF",
+    "security": "Security"
+  },
+  "categoryDescription": {
+    "text": "Encode, format, and transform text.",
+    "developer": "Generators, converters, and everyday dev utilities.",
+    "images": "Convert, resize, and inspect images.",
+    "video": "Convert and trim video clips.",
+    "audio": "Convert between audio formats.",
+    "files": "Archive, extract, and compare files.",
+    "pdf": "Merge, split, and edit PDF documents.",
+    "security": "QR codes, OTP, and certificate tools."
+  },
+  "base64": {
+    "title": "Base64 Encode / Decode",
+    "description": "Encode text to Base64 or decode Base64 back to text.",
+    "inputLabel": "Input",
+    "outputLabel": "Output",
+    "encode": "Encode",
+    "decode": "Decode",
+    "inputPlaceholder": "Type or paste text…",
+    "urlSafe": "URL-safe",
+    "invalid": "Input is not valid Base64."
+  }
+}

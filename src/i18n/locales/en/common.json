@@ -1,0 +1,68 @@
+{
+  "app": {
+    "name": "VAT",
+    "fullName": "Vojir's Awesome Tools",
+    "tagline": "Developer & media tools that run entirely in your browser.",
+    "privacy": "No uploads. No tracking. No bullshit."
+  },
+  "actions": {
+    "copy": "Copy",
+    "copied": "Copied",
+    "clear": "Clear",
+    "download": "Download",
+    "swap": "Swap"
+  },
+  "toast": {
+    "copied": "Copied to clipboard",
+    "copyFailed": "Copy failed — select the text and copy manually."
+  },
+  "theme": {
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "search": {
+    "trigger": "Search tools…",
+    "placeholder": "Search tools…",
+    "shortcut": "⌘K",
+    "empty": "No tools found.",
+    "categoriesHeading": "Categories",
+    "toolsHeading": "Tools"
+  },
+  "nav": {
+    "home": "Home",
+    "allTools": "All tools",
+    "categories": "Categories",
+    "openMenu": "Open menu",
+    "github": "Source on GitHub",
+    "skipToContent": "Skip to content"
+  },
+  "home": {
+    "heroPrivacy": "Everything runs locally in your browser.",
+    "browse": "Browse",
+    "comingSoon": "Coming soon",
+    "toolCount_one": "{{count}} tool",
+    "toolCount_other": "{{count}} tools",
+    "emptyCategory": "No tools here yet — coming soon."
+  },
+  "status": {
+    "wip": "WIP",
+    "wipNote": "This tool is a work in progress."
+  },
+  "notFound": {
+    "title": "Not found",
+    "description": "That tool or page doesn't exist.",
+    "back": "Back to all tools"
+  },
+  "error": {
+    "title": "Something went wrong",
+    "description": "An unexpected error occurred while loading this tool.",
+    "retry": "Reload"
+  },
+  "loading": "Loading…",
+  "footer": {
+    "tagline": "Runs 100% in your browser — nothing is uploaded.",
+    "source": "Source"
+  }
+}

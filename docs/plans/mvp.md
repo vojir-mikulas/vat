@@ -24,43 +24,43 @@ has a Go backend + live data, VAT has **none** — it's pure front-end.
 
 ## 2. Stack
 
-| Layer | Choice | Notes |
-|---|---|---|
-| Language / build | **TypeScript + Vite + React 19** | same as `vac` |
-| Package manager | **pnpm 10** | |
-| Styling | **Tailwind 4** (CSS-first `@theme`) | port `vac`'s `index.css` token palette verbatim |
-| Components | **shadcn/ui** (new-york, neutral base) + **Radix UI** | reuse `vac`'s `components/ui/*` |
-| Fonts | **Geist Sans / Geist Mono** via `@fontsource` | self-hosted, no CDN |
-| Icons | **lucide-react** | |
-| Routing | **TanStack Router** (file-based, autoCodeSplitting) | one route per tool, generated tree |
-| Animation | **motion** (LazyMotion + `m.*`) | match `vac` |
-| Theme toggle | **next-themes** | light / dark / system |
-| Toasts | **sonner** | |
-| Command palette | **cmdk** | fuzzy tool launcher (⌘K) — driven by the tool registry |
-| Lint / format | **ESLint + Prettier** | port `vac` config; add `eslint-plugin-jsx-a11y` |
-| Tests | **Vitest** + Testing Library | unit tests on tool logic (pure functions) |
+| Layer            | Choice                                                | Notes                                                  |
+| ---------------- | ----------------------------------------------------- | ------------------------------------------------------ |
+| Language / build | **TypeScript + Vite + React 19**                      | same as `vac`                                          |
+| Package manager  | **pnpm 10**                                           |                                                        |
+| Styling          | **Tailwind 4** (CSS-first `@theme`)                   | port `vac`'s `index.css` token palette verbatim        |
+| Components       | **shadcn/ui** (new-york, neutral base) + **Radix UI** | reuse `vac`'s `components/ui/*`                        |
+| Fonts            | **Geist Sans / Geist Mono** via `@fontsource`         | self-hosted, no CDN                                    |
+| Icons            | **lucide-react**                                      |                                                        |
+| Routing          | **TanStack Router** (file-based, autoCodeSplitting)   | one route per tool, generated tree                     |
+| Animation        | **motion** (LazyMotion + `m.*`)                       | match `vac`                                            |
+| Theme toggle     | **next-themes**                                       | light / dark / system                                  |
+| Toasts           | **sonner**                                            |                                                        |
+| Command palette  | **cmdk**                                              | fuzzy tool launcher (⌘K) — driven by the tool registry |
+| Lint / format    | **ESLint + Prettier**                                 | port `vac` config; add `eslint-plugin-jsx-a11y`        |
+| Tests            | **Vitest** + Testing Library                          | unit tests on tool logic (pure functions)              |
 
 ### Per-tool libraries (lazy-loaded where heavy)
 
-| Domain | Library |
-|---|---|
-| Hashing / HMAC | **hash-wasm** (MD5, SHA-1/256/512, HMAC — WebCrypto has no MD5) |
-| UUID / NanoID | `crypto.randomUUID()` + **nanoid** |
-| JSON ↔ YAML | **js-yaml** |
-| Markdown preview | **marked** + **dompurify** |
-| Diff viewer | **diff** (jsdiff) |
-| JWT decode | native base64url + JSON (no verify in MVP) |
-| Cron parser | **cronstrue** + **cron-parser** |
-| SQL formatter | **sql-formatter** |
-| Color convert | **colord** |
-| Images (convert/resize/crop/rotate/compress) | **Canvas API** (native) |
-| EXIF read/strip | **exifr** |
-| ZIP / Unzip / TAR | **fflate** |
-| PDF (merge/split/rotate/extract) | **pdf-lib** |
-| PDF render/preview | **pdfjs-dist** (lazy) |
-| QR generate | **qrcode.react** |
-| QR read | **jsqr** |
-| Video / Audio (mp4↔gif, trim, frame, mp3/wav/flac) | **@ffmpeg/ffmpeg** (WASM, lazy, cross-origin-isolated) |
+| Domain                                             | Library                                                         |
+| -------------------------------------------------- | --------------------------------------------------------------- |
+| Hashing / HMAC                                     | **hash-wasm** (MD5, SHA-1/256/512, HMAC — WebCrypto has no MD5) |
+| UUID / NanoID                                      | `crypto.randomUUID()` + **nanoid**                              |
+| JSON ↔ YAML                                        | **js-yaml**                                                     |
+| Markdown preview                                   | **marked** + **dompurify**                                      |
+| Diff viewer                                        | **diff** (jsdiff)                                               |
+| JWT decode                                         | native base64url + JSON (no verify in MVP)                      |
+| Cron parser                                        | **cronstrue** + **cron-parser**                                 |
+| SQL formatter                                      | **sql-formatter**                                               |
+| Color convert                                      | **colord**                                                      |
+| Images (convert/resize/crop/rotate/compress)       | **Canvas API** (native)                                         |
+| EXIF read/strip                                    | **exifr**                                                       |
+| ZIP / Unzip / TAR                                  | **fflate**                                                      |
+| PDF (merge/split/rotate/extract)                   | **pdf-lib**                                                     |
+| PDF render/preview                                 | **pdfjs-dist** (lazy)                                           |
+| QR generate                                        | **qrcode.react**                                                |
+| QR read                                            | **jsqr**                                                        |
+| Video / Audio (mp4↔gif, trim, frame, mp3/wav/flac) | **@ffmpeg/ffmpeg** (WASM, lazy, cross-origin-isolated)          |
 
 > **Bundle policy:** the base app loads only the registry + shell. ffmpeg.wasm,
 > pdfjs, and other heavy modules are dynamically imported the first time their tool
@@ -77,17 +77,25 @@ category navigation, the command palette, and search. Adding a tool = add a regi
 entry + a lazy component.
 
 ```ts
-type ToolCategory = 'text' | 'developer' | 'images' | 'video' | 'audio' | 'files' | 'pdf' | 'security'
+type ToolCategory =
+  | 'text'
+  | 'developer'
+  | 'images'
+  | 'video'
+  | 'audio'
+  | 'files'
+  | 'pdf'
+  | 'security'
 
 interface Tool {
-  id: string                    // 'base64', 'uuid', …  (URL slug + i18n key)
+  id: string // 'base64', 'uuid', …  (URL slug + i18n key)
   title: string
   description: string
   category: ToolCategory
   icon: LucideIcon
-  keywords: string[]            // fuzzy-search aliases ('encode', 'b64', …)
+  keywords: string[] // fuzzy-search aliases ('encode', 'b64', …)
   status: 'ready' | 'wip'
-  load: () => Promise<{ default: ComponentType }>   // code-split entry
+  load: () => Promise<{ default: ComponentType }> // code-split entry
 }
 ```
 
@@ -135,15 +143,21 @@ copy/keyboard shortcuts).
 Status legend: `[ ]` not started · `[~]` in progress · `[x]` done.
 
 ### Phase 0 — Foundations
-- [ ] Scaffold Vite + React 19 + TS, pnpm
-- [ ] Port `vac` theme (`index.css`), Geist fonts, shadcn `components/ui`
-- [ ] App shell: sidebar (categories), topbar, ⌘K command menu, dark mode
-- [ ] Tool registry + routing + search wiring
-- [ ] Shared `common/` primitives (CopyButton, Dropzone, CodePane, FileResult)
-- [ ] Home / landing page (category grid)
+
+- [x] Scaffold Vite + React 19 + TS, pnpm
+- [x] Port `vac` theme (`index.css`), Geist fonts, shadcn `components/ui`
+- [x] App shell: sidebar (categories), topbar, ⌘K command menu, dark mode
+- [x] Tool registry + routing + search wiring
+- [~] Shared `common/` primitives — `CopyButton` + `ToolHost`/`PageHeader` done;
+  `Dropzone` / `CodePane` / `FileResult` land with the tools that need them
+- [x] Home / landing page (category grid)
+- [x] i18n setup (react-i18next, `common` + `tools` namespaces, English)
+- [x] Base64 reference tool (`src/tools/base64/`) — validates the full
+      registry → routing → command-menu → lazy-load pipeline end to end
 
 ### Phase 1 — Text (pure, zero heavy deps — ship first)
-- [ ] Base64 Encode / Decode
+
+- [x] Base64 Encode / Decode <!-- built in Phase 0 as the reference tool -->
 - [ ] URL Encode / Decode
 - [ ] HTML Encode / Decode
 - [ ] JWT Decoder
@@ -154,6 +168,7 @@ Status legend: `[ ]` not started · `[~]` in progress · `[x]` done.
 - [ ] Lorem Ipsum Generator
 
 ### Phase 2 — Developer
+
 - [ ] UUID Generator
 - [ ] NanoID Generator
 - [ ] Password Generator
@@ -166,6 +181,7 @@ Status legend: `[ ]` not started · `[~]` in progress · `[x]` done.
 - [ ] Color Converter (HEX / RGB / HSL)
 
 ### Phase 3 — Images (Canvas API)
+
 - [ ] JPG → PNG
 - [ ] PNG → JPG
 - [ ] WEBP ↔ PNG
@@ -178,6 +194,7 @@ Status legend: `[ ]` not started · `[~]` in progress · `[x]` done.
 - [ ] Image Metadata Viewer
 
 ### Phase 4 — Files
+
 - [ ] ZIP
 - [ ] Unzip
 - [ ] TAR Extract
@@ -185,6 +202,7 @@ Status legend: `[ ]` not started · `[~]` in progress · `[x]` done.
 - [ ] Compare Files
 
 ### Phase 5 — PDF
+
 - [ ] Merge PDF
 - [ ] Split PDF
 - [ ] Compress PDF
@@ -192,12 +210,14 @@ Status legend: `[ ]` not started · `[~]` in progress · `[x]` done.
 - [ ] Extract Pages
 
 ### Phase 6 — Security
+
 - [ ] QR Code Generator
 - [ ] QR Code Reader
 - [ ] OTP URI Parser
 - [ ] Certificate Viewer
 
 ### Phase 7 — Video / Audio (ffmpeg.wasm — heavy, gated behind lazy load + COOP/COEP)
+
 - [ ] MP4 → GIF
 - [ ] GIF → MP4
 - [ ] Extract Frame
@@ -238,7 +258,7 @@ Status legend: `[ ]` not started · `[~]` in progress · `[x]` done.
 ## 7. Non-goals (MVP)
 
 - No accounts, no persistence beyond `localStorage` (recent tools, preferences).
-- No JWT/cert *verification* against trust stores (decode/view only).
+- No JWT/cert _verification_ against trust stores (decode/view only).
 - No server-side anything.
-</content>
-</invoke>
+  </content>
+  </invoke>

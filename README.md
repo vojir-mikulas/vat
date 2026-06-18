@@ -1,73 +1,72 @@
-# React + TypeScript + Vite
+# VAT — Vojir's Awesome Tools
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> A collection of useful developer and media tools that run entirely in your browser.
+>
+> **No uploads. No tracking. No bullshit.**
 
-Currently, two official plugins are available:
+VAT is a static, client-side web app: a searchable collection of small developer and
+media tools. Every tool runs **100% in your browser** — nothing is uploaded, nothing is
+tracked. It deploys as plain static files to any CDN or static host.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Principles
 
-## React Compiler
+- **Everything runs locally** — no uploads, ever.
+- **Privacy first** — no tracking, no analytics that phone home.
+- **Fast** — tiny base bundle; heavy dependencies are lazy-loaded per tool.
+- **Mobile friendly**, **dark mode**, **keyboard-first** (⌘K launcher), **drag & drop**.
+- **Open source** (Apache-2.0).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Stack
 
-## Expanding the ESLint configuration
+- **Vite + React 19 + TypeScript**, pnpm
+- **Tailwind 4** + **shadcn/ui** (Radix), Geist fonts — design ported from the sibling
+  [`vac`](../vac) project
+- **TanStack Router** (file-based) · **motion** · **sonner** · **cmdk** · **react-i18next**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Development
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+pnpm install
+pnpm dev            # dev server at http://localhost:5173
+pnpm build          # typecheck + production build to dist/
+pnpm typecheck      # tsc -b
+pnpm lint           # eslint
+pnpm format         # prettier --write
+pnpm test           # vitest (unit tests on tool logic)
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Architecture
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+The heart of VAT is a typed **tool registry** (`src/lib/registry.ts`) — the single
+source of truth that drives routing, the sidebar/landing navigation, and the ⌘K command
+palette. Display strings live in the `tools` i18n namespace (`src/i18n/locales/`).
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+src/
+  lib/registry.ts        the tool registry (categories + tools)
+  components/
+    ui/                  shadcn primitives (ported from vac)
+    layout/              app-shell, sidebar, topbar, command-menu
+    common/              shared widgets (copy-button, tool-host, …)
+  tools/<id>/            one folder per tool
+    <id>.ts              pure logic (unit-tested)
+    <id>.test.ts
+    <id>-tool.tsx        default-exported component
+  routes/                TanStack file routes (thin — driven by the registry)
+  i18n/                  react-i18next setup + en catalogs
+```
+
+### Adding a tool
+
+1. Create `src/tools/<id>/<id>-tool.tsx` (default-exported component) and, ideally,
+   a `<id>.ts` logic module with tests.
+2. Add `tools:<id>.title` / `.description` (and any UI strings) to
+   `src/i18n/locales/en/tools.json`.
+3. Add one entry to `TOOLS` in `src/lib/registry.ts` (id, category, icon, keywords,
+   `load: () => import('@/tools/<id>/<id>-tool')`).
+
+Routing, search, and navigation pick it up automatically. The Base64 tool
+(`src/tools/base64/`) is the canonical reference implementation.
+
+See [`docs/plans/mvp.md`](docs/plans/mvp.md) for the full MVP scope and phasing.
+</content>
