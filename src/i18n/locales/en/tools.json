@@ -369,5 +369,65 @@
     "selected_one": "{{count}} page selected",
     "selected_other": "{{count}} pages selected",
     "download": "Extract & download"
+  },
+  "qr-generate": {
+    "title": "QR Code Generator",
+    "description": "Generate a QR code from any text or URL.",
+    "inputLabel": "Content",
+    "inputPlaceholder": "Type text or a URL…",
+    "ecc": "Error correction",
+    "level": {
+      "L": "Low (7%)",
+      "M": "Medium (15%)",
+      "Q": "Quartile (25%)",
+      "H": "High (30%)"
+    },
+    "empty": "Enter content to generate a QR code",
+    "png": "PNG",
+    "svg": "SVG"
+  },
+  "qr-read": {
+    "title": "QR Code Reader",
+    "description": "Decode a QR code from an image.",
+    "prompt": "Drop an image with a QR code, or click to browse",
+    "result": "Decoded content",
+    "notFound": "No QR code found in this image."
+  },
+  "otp": {
+    "title": "OTP URI Parser",
+    "description": "Parse an otpauth:// URI (authenticator setup link) into its fields.",
+    "inputLabel": "otpauth:// URI",
+    "inputPlaceholder": "otpauth://totp/Issuer:account?secret=…",
+    "invalid": "Not a valid otpauth:// URI.",
+    "type": "Type",
+    "issuer": "Issuer",
+    "account": "Account",
+    "secret": "Secret",
+    "algorithm": "Algorithm",
+    "digits": "Digits",
+    "period": "Period",
+    "counter": "Counter",
+    "seconds_one": "{{count}} second",
+    "seconds_other": "{{count}} seconds"
+  },
+  "certificate": {
+    "title": "Certificate Viewer",
+    "description": "Inspect an X.509 certificate (PEM). The signature is not verified.",
+    "prompt": "Drop a .pem / .crt file, or click to browse",
+    "pemLabel": "PEM",
+    "pemPlaceholder": "-----BEGIN CERTIFICATE-----…",
+    "invalid": "Could not parse that certificate.",
+    "status": "Status",
+    "valid": "Valid",
+    "expired": "Expired",
+    "notYetValid": "Not yet valid",
+    "subject": "Subject",
+    "issuer": "Issuer",
+    "notBefore": "Not before",
+    "notAfter": "Not after",
+    "serial": "Serial number",
+    "signatureAlgorithm": "Signature algorithm",
+    "san": "Subject alternative names",
+    "fingerprint": "SHA-256 fingerprint"
   }
 }

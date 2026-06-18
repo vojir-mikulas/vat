@@ -211,10 +211,10 @@ Status legend: `[ ]` not started · `[~]` in progress · `[x]` done.
 
 ### Phase 6 — Security
 
-- [ ] QR Code Generator
-- [ ] QR Code Reader
-- [ ] OTP URI Parser
-- [ ] Certificate Viewer
+- [x] QR Code Generator
+- [x] QR Code Reader
+- [x] OTP URI Parser
+- [x] Certificate Viewer
 
 ### Phase 7 — Video / Audio (ffmpeg.wasm — heavy, gated behind lazy load + COOP/COEP)
 
