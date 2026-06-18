@@ -78,7 +78,14 @@ export default function JsonFormatTool() {
           rows="lg"
           autoFocus
         />
-        <CodePane label={t('json.outputLabel')} value={output} error={error} copy rows="lg" />
+        <CodePane
+          label={t('json.outputLabel')}
+          value={output}
+          error={error}
+          language="json"
+          copy
+          rows="lg"
+        />
       </div>
     </div>
   )

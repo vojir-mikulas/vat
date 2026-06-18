@@ -2,20 +2,7 @@
 // It isn't a parser — it classifies runs of text into coarse token kinds good
 // enough to color formatted output, the way a Shiki/TextMate grammar would.
 
-export type TokenKind =
-  | 'keyword'
-  | 'function'
-  | 'string'
-  | 'number'
-  | 'comment'
-  | 'operator'
-  | 'punctuation'
-  | 'plain'
-
-export interface Token {
-  kind: TokenKind
-  value: string
-}
+import { createPush, type Token, type TokenKind } from './types'
 
 // Common SQL reserved words across the dialects sql-formatter supports. Matched
 // case-insensitively; the formatter upper-cases them but hand-typed input may not.
@@ -60,15 +47,8 @@ const MATCHERS: Array<{ kind: TokenKind; re: RegExp }> = [
 
 export function tokenizeSql(sql: string): Token[] {
   const tokens: Token[] = []
+  const push = createPush(tokens)
   let rest = sql
-
-  const push = (kind: TokenKind, value: string) => {
-    // Coalesce adjacent same-kind tokens (e.g. runs of whitespace/plain) so the
-    // rendered span count stays low.
-    const last = tokens[tokens.length - 1]
-    if (last && last.kind === kind) last.value += value
-    else tokens.push({ kind, value })
-  }
 
   while (rest) {
     let matched = false

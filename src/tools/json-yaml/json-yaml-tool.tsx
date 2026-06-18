@@ -43,7 +43,14 @@ export default function JsonYamlTool() {
           rows="lg"
           autoFocus
         />
-        <CodePane label={outputLabel} value={output} error={error} copy rows="lg" />
+        <CodePane
+          label={outputLabel}
+          value={output}
+          error={error}
+          language={direction === 'j2y' ? 'yaml' : 'json'}
+          copy
+          rows="lg"
+        />
       </div>
     </div>
   )

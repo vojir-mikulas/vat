@@ -3,7 +3,7 @@
     "name": "VAT",
     "fullName": "Vojir's Awesome Tools",
     "tagline": "Developer & media tools that run entirely in your browser.",
-    "privacy": "Everything runs in your browser. No uploads, no tracking."
+    "privacy": ""
   },
   "actions": {
     "copy": "Copy",
@@ -71,7 +71,10 @@
     "result": "Result",
     "download": "Download",
     "dimensions": "{{width}} × {{height}}",
-    "formatUnsupported": "Your browser can't encode this format — saved as the fallback instead."
+    "formatUnsupported": "Your browser can't encode this format — saved as the fallback instead.",
+    "fit": "Fit to view",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out"
   },
   "fileList": {
     "entries_one": "{{count}} entry",
@@ -84,6 +87,21 @@
     "download": "Download",
     "convert": "Convert",
     "runsLocally": "Runs entirely in your browser — large files may take a while."
+  },
+  "player": {
+    "label": "Video player",
+    "play": "Play",
+    "pause": "Pause",
+    "seek": "Seek",
+    "prevFrame": "Previous frame",
+    "nextFrame": "Next frame",
+    "mute": "Mute",
+    "unmute": "Unmute",
+    "volume": "Volume",
+    "speed": "Playback speed",
+    "normal": "Normal",
+    "fullscreen": "Fullscreen",
+    "exitFullscreen": "Exit fullscreen"
   },
   "loading": "Loading…",
   "footer": {

@@ -4,6 +4,7 @@ import { Download, Loader2 } from 'lucide-react'
 import type { FfmpegPhase, MediaOutput } from '@/lib/use-ffmpeg'
 import { downloadBlob, formatBytes } from '@/lib/download'
 import { Button } from '@/components/ui/button'
+import { VideoPlayer } from '@/components/common/video-player'
 
 // Loading/progress/error banner for an ffmpeg job.
 export function FfmpegStatus({
@@ -66,7 +67,7 @@ export function MediaResult({
       </div>
       <div className="flex flex-col items-center gap-2 rounded-xl border bg-surface-1 p-4">
         {kind === 'video' ? (
-          <video src={output.url} controls className="max-h-[26rem] max-w-full rounded-lg" />
+          <VideoPlayer key={output.url} src={output.url} className="max-w-full" />
         ) : kind === 'image' ? (
           <img src={output.url} alt={t('media.result')} className="max-h-[26rem] max-w-full" />
         ) : (

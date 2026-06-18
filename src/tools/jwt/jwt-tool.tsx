@@ -55,11 +55,13 @@ export default function JwtTool() {
             <CodePane
               label={t('jwt.header')}
               value={JSON.stringify(decoded.header, null, 2)}
+              language="json"
               copy
             />
             <CodePane
               label={t('jwt.payload')}
               value={JSON.stringify(decoded.payload, null, 2)}
+              language="json"
               copy
             />
           </div>

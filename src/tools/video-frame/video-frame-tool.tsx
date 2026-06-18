@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Camera, ChevronLeft, ChevronRight, Download } from 'lucide-react'
+import { Camera, Download } from 'lucide-react'
 
 import { formatTimecode } from '@/lib/ffmpeg-args'
 import { replaceExtension } from '@/lib/image'
@@ -8,8 +8,7 @@ import { downloadBlob, formatBytes } from '@/lib/download'
 import { useObjectUrl } from '@/lib/use-object-url'
 import { Button } from '@/components/ui/button'
 import { Dropzone } from '@/components/common/dropzone'
-
-const FRAME_STEP = 1 / 30 // ~one frame at 30fps
+import { VideoPlayer, type VideoPlayerHandle } from '@/components/common/video-player'
 
 interface Capture {
   url: string
@@ -24,8 +23,7 @@ export default function VideoFrameTool() {
   const { t } = useTranslation('tools')
   const [file, setFile] = useState<File | null>(null)
   const url = useObjectUrl(file)
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const [current, setCurrent] = useState(0)
+  const playerRef = useRef<VideoPlayerHandle>(null)
   const [capture, setCapture] = useState<Capture | null>(null)
   const lastUrl = useRef<string | null>(null)
 
@@ -36,14 +34,8 @@ export default function VideoFrameTool() {
     [],
   )
 
-  function step(delta: number) {
-    const v = videoRef.current
-    if (!v) return
-    v.currentTime = Math.max(0, Math.min(v.duration || 0, v.currentTime + delta))
-  }
-
   function grabFrame() {
-    const v = videoRef.current
+    const v = playerRef.current?.video
     if (!v || !v.videoWidth) return
     const canvas = document.createElement('canvas')
     canvas.width = v.videoWidth
@@ -74,31 +66,22 @@ export default function VideoFrameTool() {
       />
 
       {url ? (
-        <>
-          <video
-            ref={videoRef}
-            src={url}
-            controls
-            className="max-h-[24rem] w-full rounded-xl border bg-black"
-            onLoadedMetadata={(e) => setCurrent(e.currentTarget.currentTime)}
-            onTimeUpdate={(e) => setCurrent(e.currentTarget.currentTime)}
-          />
-          <div className="flex flex-wrap items-center gap-2">
-            <Button variant="outline" size="sm" aria-label={t('video-frame.prevFrame')} onClick={() => step(-FRAME_STEP)}>
-              <ChevronLeft />
-            </Button>
-            <span className="min-w-16 text-center font-mono text-sm tabular-nums">
-              {formatTimecode(current)}
-            </span>
-            <Button variant="outline" size="sm" aria-label={t('video-frame.nextFrame')} onClick={() => step(FRAME_STEP)}>
-              <ChevronRight />
-            </Button>
-            <Button className="ml-auto" onClick={grabFrame}>
+        <VideoPlayer
+          key={url}
+          ref={playerRef}
+          src={url}
+          actions={
+            <Button
+              variant="brand"
+              size="sm"
+              onClick={grabFrame}
+              className="ml-1 h-8 hover:bg-brand/90"
+            >
               <Camera />
               {t('video-frame.capture')}
             </Button>
-          </div>
-        </>
+          }
+        />
       ) : null}
 
       {capture && file ? (
@@ -111,7 +94,10 @@ export default function VideoFrameTool() {
               onClick={() =>
                 downloadBlob(
                   capture.blob,
-                  replaceExtension(file.name, 'png').replace(/\.png$/, `-${Math.round(capture.time)}s.png`),
+                  replaceExtension(file.name, 'png').replace(
+                    /\.png$/,
+                    `-${Math.round(capture.time)}s.png`,
+                  ),
                 )
               }
             >
@@ -120,7 +106,11 @@ export default function VideoFrameTool() {
             </Button>
           </div>
           <div className="overflow-hidden rounded-xl border bg-surface-1">
-            <img src={capture.url} alt={t('video-frame.result')} className="max-h-[24rem] w-full object-contain" />
+            <img
+              src={capture.url}
+              alt={t('video-frame.result')}
+              className="max-h-[24rem] w-full object-contain"
+            />
             <div className="border-t px-4 py-2 font-mono text-sm text-muted-foreground">
               {formatBytes(capture.blob.size)}
             </div>

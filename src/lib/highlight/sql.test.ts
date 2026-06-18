@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
-import { tokenizeSql, type TokenKind } from './highlight'
+import { tokenizeSql } from './sql'
+import type { TokenKind } from './types'
 
 const kindsOf = (sql: string, value: string): TokenKind[] =>
   tokenizeSql(sql)

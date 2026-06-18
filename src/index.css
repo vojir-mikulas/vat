@@ -138,9 +138,10 @@
   --info-bg: oklch(0.97 0.03 258);
   --info-border: oklch(0.86 0.08 258);
 
-  /* Syntax highlighting — token colors for read-only code output (SQL, …). */
+  /* Syntax highlighting — token colors for read-only code output (SQL, JSON, …). */
   --syntax-keyword: oklch(0.5 0.19 272);
   --syntax-function: oklch(0.52 0.12 200);
+  --syntax-property: oklch(0.48 0.16 250);
   --syntax-string: oklch(0.5 0.14 150);
   --syntax-number: oklch(0.56 0.16 55);
   --syntax-comment: oklch(0.62 0.02 60);
@@ -213,6 +214,7 @@
   /* Brighter token colors that read on the dark surfaces. */
   --syntax-keyword: oklch(0.76 0.14 272);
   --syntax-function: oklch(0.79 0.11 200);
+  --syntax-property: oklch(0.76 0.12 250);
   --syntax-string: oklch(0.79 0.13 150);
   --syntax-number: oklch(0.82 0.12 65);
   --syntax-comment: oklch(0.58 0.015 60);

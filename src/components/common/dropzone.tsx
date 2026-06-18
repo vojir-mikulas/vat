@@ -60,7 +60,7 @@ export function Dropzone({
         handleFiles(e.dataTransfer.files)
       }}
       className={cn(
-        'flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border border-dashed bg-surface-1 px-6 py-10 text-center transition-colors outline-none hover:border-border-strong focus-visible:ring-[3px] focus-visible:ring-ring/50',
+        'flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border border-dashed bg-surface-1 px-6 py-10 text-center transition-colors outline-none hover:border-border-strong focus-visible:ring-[3px] focus-visible:ring-ring/50 lg:py-16',
         dragging && 'border-brand bg-surface-2',
       )}
     >

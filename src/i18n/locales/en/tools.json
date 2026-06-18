@@ -237,30 +237,22 @@
     "format": "Output format",
     "quality": "Quality"
   },
-  "image-resize": {
-    "title": "Resize Image",
-    "description": "Scale an image to new dimensions.",
+  "image-editor": {
+    "title": "Image Editor",
+    "description": "Crop, rotate, flip, and resize an image in one workspace.",
+    "crop": "Crop",
+    "resize": "Resize",
+    "rotateLeft": "Rotate left",
+    "rotateRight": "Rotate right",
+    "flipH": "Flip horizontal",
+    "flipV": "Flip vertical",
     "width": "Width",
     "height": "Height",
     "lockAspect": "Lock aspect ratio",
-    "dragHint": "Drag the corner handle to resize, or type exact dimensions below.",
-    "handle": "Resize handle"
-  },
-  "image-crop": {
-    "title": "Crop Image",
-    "description": "Crop an image to a region (pixels from the top-left).",
-    "x": "X",
-    "y": "Y",
-    "width": "Width",
-    "height": "Height"
-  },
-  "image-rotate": {
-    "title": "Rotate Image",
-    "description": "Rotate and flip an image.",
-    "left": "Rotate left",
-    "right": "Rotate right",
-    "flipH": "Flip horizontal",
-    "flipV": "Flip vertical"
+    "reset": "Reset",
+    "move": "Move crop area",
+    "corner": "Resize crop area",
+    "handle": "Drag to resize"
   },
   "image-compress": {
     "title": "Compress Image",
@@ -323,20 +315,21 @@
     "hashA": "SHA-256 (first)",
     "hashB": "SHA-256 (second)"
   },
-  "pdf-merge": {
-    "title": "Merge PDF",
-    "description": "Combine multiple PDFs into one, in the order you choose.",
-    "prompt": "Drop PDF files to merge, or click to browse",
-    "moveUp": "Move up",
-    "moveDown": "Move down",
-    "remove": "Remove",
-    "download": "Merge & download"
-  },
-  "pdf-split": {
-    "title": "Split PDF",
-    "description": "Split a PDF into one file per page.",
-    "prompt": "Drop a PDF here, or click to browse",
-    "downloadZip": "Download all (ZIP)"
+  "pdf-editor": {
+    "title": "PDF Editor",
+    "description": "Merge, reorder, rotate, and delete pages with live previews — all in one workspace.",
+    "prompt": "Drop PDF files here, or click to browse",
+    "pageCount_one": "{{count}} page",
+    "pageCount_other": "{{count}} pages",
+    "dragHint": "Click a page to preview it. Drag to reorder. Hover a page to rotate or remove it.",
+    "pagesHeading": "Pages",
+    "add": "Add PDF",
+    "rotate": "Rotate page",
+    "remove": "Remove page",
+    "rotateAll": "Rotate all",
+    "export": "Export PDF",
+    "pageOf": "Page {{n}} of {{total}}",
+    "previewEmpty": "Select a page to preview it"
   },
   "pdf-compress": {
     "title": "Compress PDF",
@@ -347,27 +340,6 @@
     "noGain": "Already optimized",
     "note": "Structural optimization only — embedded images aren't re-encoded, so savings are usually modest.",
     "download": "Download"
-  },
-  "pdf-rotate": {
-    "title": "Rotate PDF Pages",
-    "description": "Rotate every page of a PDF.",
-    "prompt": "Drop a PDF here, or click to browse",
-    "left": "Rotate left",
-    "right": "Rotate right",
-    "angle": "{{angle}}°",
-    "allPages_one": "{{count}} page",
-    "allPages_other": "{{count}} pages",
-    "download": "Download rotated"
-  },
-  "pdf-extract": {
-    "title": "Extract PDF Pages",
-    "description": "Create a new PDF from a selection of pages.",
-    "prompt": "Drop a PDF here, or click to browse",
-    "range": "Pages to extract (of {{count}})",
-    "placeholder": "e.g. 1-3, 5, 8",
-    "selected_one": "{{count}} page selected",
-    "selected_other": "{{count}} pages selected",
-    "download": "Extract & download"
   },
   "qr-generate": {
     "title": "QR Code Generator",
@@ -428,6 +400,22 @@
     "signatureAlgorithm": "Signature algorithm",
     "san": "Subject alternative names",
     "fingerprint": "SHA-256 fingerprint"
+  },
+  "video-editor": {
+    "title": "Video Editor",
+    "description": "A timeline editor: trim with in/out points, scrub a filmstrip and waveform, and capture frames.",
+    "prompt": "Drop a video here, or click to browse",
+    "setIn": "Set in",
+    "setOut": "Set out",
+    "capture": "Capture frame",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "fit": "Fit timeline",
+    "export": "Export clip",
+    "captures": "Captured frames",
+    "removeCapture": "Remove",
+    "building": "Building filmstrip…",
+    "note": "Trim is stream-copied (no re-encode), so cuts snap to the nearest keyframe. Frames are captured losslessly as PNG."
   },
   "video-convert": {
     "title": "Video Converter",

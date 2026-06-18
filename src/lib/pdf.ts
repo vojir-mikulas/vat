@@ -59,6 +59,37 @@ export async function rotatePdf(
   return doc.save()
 }
 
+// A single page in a composed document: which source PDF it comes from, which
+// (0-based) page within it, and an extra rotation (degrees) to add on top of the
+// page's own rotation.
+export interface PageOp {
+  srcIndex: number
+  pageIndex: number
+  rotation: number
+}
+
+// Build one PDF from an ordered list of page ops drawn from several source PDFs.
+// This is the single primitive behind the editor: merge (ops span multiple
+// sources), reorder (ops in any order), extract (a subset of ops), and rotate
+// (per-op `rotation`) are all just different op lists. Each source is loaded
+// once; pages may repeat.
+export async function composePdf(buffers: Uint8Array[], ops: PageOp[]): Promise<Uint8Array> {
+  const sources = await Promise.all(buffers.map((b) => PDFDocument.load(b)))
+  const out = await PDFDocument.create()
+  for (const op of ops) {
+    const src = sources[op.srcIndex]
+    if (!src) continue
+    const [page] = await out.copyPages(src, [op.pageIndex])
+    if (!page) continue
+    if (op.rotation) {
+      const next = (((page.getRotation().angle + op.rotation) % 360) + 360) % 360
+      page.setRotation(degrees(next))
+    }
+    out.addPage(page)
+  }
+  return out.save()
+}
+
 // Re-save with object streams. This is a structural optimization only (it does not
 // re-encode embedded images), so the size reduction is usually modest.
 export async function compressPdf(bytes: Uint8Array): Promise<Uint8Array> {

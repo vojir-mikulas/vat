@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { PDFDocument } from 'pdf-lib'
 
 import {
+  composePdf,
   compressPdf,
   extractPages,
   getPageCount,
@@ -49,6 +50,20 @@ describe('pdf operations', () => {
   it('rotates pages', async () => {
     const out = await rotatePdf(await makePdf(1), 90)
     const doc = await PDFDocument.load(out)
+    expect(doc.getPages()[0]!.getRotation().angle).toBe(90)
+  })
+
+  it('composes pages across sources, reordering and rotating', async () => {
+    const out = await composePdf(
+      [await makePdf(2), await makePdf(3)],
+      [
+        { srcIndex: 1, pageIndex: 2, rotation: 90 },
+        { srcIndex: 0, pageIndex: 0, rotation: 0 },
+        { srcIndex: 1, pageIndex: 0, rotation: 0 },
+      ],
+    )
+    const doc = await PDFDocument.load(out)
+    expect(doc.getPageCount()).toBe(3)
     expect(doc.getPages()[0]!.getRotation().angle).toBe(90)
   })
 

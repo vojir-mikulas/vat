@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ChevronFirst, ChevronLast } from 'lucide-react'
+import { ChevronFirst, ChevronLast, Scissors } from 'lucide-react'
 
 import { formatTimecode, trimArgs } from '@/lib/ffmpeg-args'
 import { useObjectUrl } from '@/lib/use-object-url'
@@ -8,6 +8,7 @@ import { useFfmpegJob } from '@/lib/use-ffmpeg'
 import { Button } from '@/components/ui/button'
 import { Dropzone } from '@/components/common/dropzone'
 import { RangeScrubber } from '@/components/common/range-scrubber'
+import { VideoPlayer, type VideoPlayerHandle } from '@/components/common/video-player'
 import { FfmpegStatus, MediaResult } from '@/components/common/media-result'
 
 const extOf = (file: File) => file.name.split('.').pop() || 'mp4'
@@ -16,7 +17,7 @@ export default function VideoTrimTool() {
   const { t } = useTranslation('tools')
   const [file, setFile] = useState<File | null>(null)
   const url = useObjectUrl(file)
-  const videoRef = useRef<HTMLVideoElement>(null)
+  const playerRef = useRef<VideoPlayerHandle>(null)
   const [duration, setDuration] = useState(0)
   const [current, setCurrent] = useState(0)
   const [start, setStart] = useState(0)
@@ -24,9 +25,9 @@ export default function VideoTrimTool() {
   const { phase, progress, error, output, run } = useFfmpegJob()
   const busy = phase === 'loading' || phase === 'running'
 
-  function seek(t: number) {
-    if (videoRef.current) videoRef.current.currentTime = t
-    setCurrent(t)
+  function seek(time: number) {
+    playerRef.current?.seek(time)
+    setCurrent(time)
   }
 
   function trim() {
@@ -52,6 +53,7 @@ export default function VideoTrimTool() {
         onFile={(f) => {
           setFile(f)
           setDuration(0)
+          setCurrent(0)
           setStart(0)
           setEnd(0)
         }}
@@ -59,52 +61,70 @@ export default function VideoTrimTool() {
 
       {url ? (
         <>
-          <video
-            ref={videoRef}
+          <VideoPlayer
+            key={url}
+            ref={playerRef}
             src={url}
-            controls
-            className="max-h-[24rem] w-full rounded-xl border bg-black"
-            onLoadedMetadata={(e) => {
-              const d = e.currentTarget.duration
-              setDuration(d)
-              setEnd(d)
+            onReady={(v) => {
+              setDuration(v.duration)
+              setEnd(v.duration)
               setStart(0)
             }}
-            onTimeUpdate={(e) => setCurrent(e.currentTarget.currentTime)}
+            onTime={(c, d) => {
+              setCurrent(c)
+              if (d && d !== duration) setDuration(d)
+            }}
           />
 
-          <RangeScrubber
-            duration={duration}
-            start={start}
-            end={end}
-            current={current}
-            ariaLabel={t('video-trim.selection')}
-            onChangeStart={(tm) => {
-              setStart(tm)
-              seek(tm)
-            }}
-            onChangeEnd={(tm) => {
-              setEnd(tm)
-              seek(tm)
-            }}
-            onSeek={seek}
-          />
+          <div className="flex flex-col gap-3 rounded-xl border bg-surface-1 p-4">
+            <RangeScrubber
+              duration={duration}
+              start={start}
+              end={end}
+              current={current}
+              ariaLabel={t('video-trim.selection')}
+              onChangeStart={(tm) => {
+                setStart(tm)
+                seek(tm)
+              }}
+              onChangeEnd={(tm) => {
+                setEnd(tm)
+                seek(tm)
+              }}
+              onSeek={seek}
+            />
 
-          <div className="flex flex-wrap items-center gap-3 text-sm">
-            <Button variant="outline" size="sm" onClick={() => setStart(Math.min(current, end - 0.1))}>
-              <ChevronFirst />
-              {t('video-trim.setStart')}
-            </Button>
-            <span className="font-mono tabular-nums text-muted-foreground">
-              {formatTimecode(start)} → {formatTimecode(end)} ({formatTimecode(Math.max(0, end - start))})
-            </span>
-            <Button variant="outline" size="sm" onClick={() => setEnd(Math.max(current, start + 0.1))}>
-              {t('video-trim.setEnd')}
-              <ChevronLast />
-            </Button>
-            <Button className="ml-auto" disabled={busy || end <= start} onClick={trim}>
-              {t('video-trim.trim')}
-            </Button>
+            <div className="flex flex-wrap items-center gap-3 text-sm">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setStart(Math.min(current, end - 0.1))}
+              >
+                <ChevronFirst />
+                {t('video-trim.setStart')}
+              </Button>
+              <span className="font-mono tabular-nums text-muted-foreground">
+                {formatTimecode(start)} → {formatTimecode(end)} (
+                {formatTimecode(Math.max(0, end - start))})
+              </span>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setEnd(Math.max(current, start + 0.1))}
+              >
+                {t('video-trim.setEnd')}
+                <ChevronLast />
+              </Button>
+              <Button
+                variant="brand"
+                className="ml-auto"
+                disabled={busy || end <= start}
+                onClick={trim}
+              >
+                <Scissors />
+                {t('video-trim.trim')}
+              </Button>
+            </div>
           </div>
           <span className="text-2xs text-muted-foreground">{t('video-trim.note')}</span>
         </>
