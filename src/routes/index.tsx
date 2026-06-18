@@ -1,9 +1,10 @@
+import type { CSSProperties } from 'react'
 import { useTranslation } from 'react-i18next'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { m } from 'motion/react'
 import { ArrowRight } from 'lucide-react'
 
-import { CATEGORIES, toolsInCategory } from '@/lib/registry'
+import { CATEGORIES, categoryAccent, toolsInCategory } from '@/lib/registry'
 import { useToolText } from '@/lib/use-tool-text'
 import { listContainer, listItem } from '@/lib/motion'
 import { PageContainer } from '@/components/layout/page'
@@ -37,10 +38,11 @@ function Home() {
               <Link
                 to="/$categoryId"
                 params={{ categoryId: cat.id }}
-                className="group flex h-full flex-col rounded-xl border bg-surface-1 p-5 transition-colors hover:border-border-strong hover:bg-surface-2 outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
+                style={{ '--cat': categoryAccent(cat.id) } as CSSProperties}
+                className="group flex h-full flex-col rounded-xl border bg-surface-1 p-5 transition-colors hover:border-[color-mix(in_oklch,var(--cat)_40%,var(--border))] hover:bg-surface-2 outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
               >
                 <div className="mb-3 flex items-center justify-between">
-                  <span className="grid size-10 place-items-center rounded-xl border bg-background text-foreground">
+                  <span className="grid size-10 place-items-center rounded-xl border border-[color-mix(in_oklch,var(--cat)_25%,transparent)] bg-[color-mix(in_oklch,var(--cat)_12%,transparent)] text-[var(--cat)]">
                     <cat.icon className="size-5" />
                   </span>
                   <ArrowRight className="size-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />

@@ -5,6 +5,7 @@ import {
   Binary,
   Braces,
   CalendarClock,
+  Camera,
   Clock,
   Code,
   Columns2,
@@ -14,10 +15,12 @@ import {
   Eraser,
   Fingerprint,
   FileArchive,
+  FileAudio,
   FileCheck,
   FileOutput,
   Files,
   FileText,
+  FileVideo,
   Hash,
   Image,
   Info,
@@ -423,12 +426,54 @@ export const TOOLS: readonly Tool[] = [
     status: 'ready',
     load: () => import('@/tools/certificate/certificate-tool'),
   },
+  {
+    id: 'video-convert',
+    category: 'video',
+    icon: FileVideo,
+    keywords: ['video', 'convert', 'mp4', 'webm', 'mkv', 'mov', 'gif', 'mp3', 'wav', 'transcode', 'ffmpeg'],
+    status: 'ready',
+    load: () => import('@/tools/video-convert/video-convert-tool'),
+  },
+  {
+    id: 'video-frame',
+    category: 'video',
+    icon: Camera,
+    keywords: ['video', 'frame', 'extract', 'screenshot', 'thumbnail', 'still', 'ffmpeg'],
+    status: 'ready',
+    load: () => import('@/tools/video-frame/video-frame-tool'),
+  },
+  {
+    id: 'video-trim',
+    category: 'video',
+    icon: Scissors,
+    keywords: ['video', 'trim', 'cut', 'clip', 'split', 'ffmpeg'],
+    status: 'ready',
+    load: () => import('@/tools/video-trim/video-trim-tool'),
+  },
+  {
+    id: 'audio-convert',
+    category: 'audio',
+    icon: FileAudio,
+    keywords: ['audio', 'convert', 'mp3', 'wav', 'flac', 'ogg', 'opus', 'aac', 'm4a', 'transcode', 'ffmpeg'],
+    status: 'ready',
+    load: () => import('@/tools/audio-convert/audio-convert-tool'),
+  },
 ] as const
 
 // ── Lookups ──────────────────────────────────────────────────────────────────
 
 export function getCategory(id: string): ToolCategory | undefined {
   return CATEGORIES.find((c) => c.id === id)
+}
+
+/**
+ * The CSS accent color for a category, e.g. `var(--cat-text)`. Set it on an
+ * element's `--cat` custom property (inline style) so descendant utilities like
+ * `text-[var(--cat)]` resolve to that category's hue. Tokens live in index.css
+ * and track light/dark automatically.
+ */
+export function categoryAccent(id: string): string {
+  return `var(--cat-${id})`
 }
 
 export function getTool(categoryId: string, toolId: string): Tool | undefined {

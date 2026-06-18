@@ -1,8 +1,9 @@
+import type { CSSProperties } from 'react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from '@tanstack/react-router'
 
-import { CATEGORIES, TOOLS, toolPath } from '@/lib/registry'
+import { CATEGORIES, TOOLS, categoryAccent, toolPath } from '@/lib/registry'
 import { useToolText } from '@/lib/use-tool-text'
 import {
   CommandDialog,
@@ -79,8 +80,9 @@ export function CommandMenu({
               key={cat.id}
               value={`category ${text.category(cat.id)}`}
               onSelect={() => go(`/${cat.id}`)}
+              style={{ '--cat': categoryAccent(cat.id) } as CSSProperties}
             >
-              <cat.icon />
+              <cat.icon className="text-[var(--cat)]" />
               <span>{text.category(cat.id)}</span>
             </CommandItem>
           ))}

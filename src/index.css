@@ -137,6 +137,27 @@
   --info-fg: oklch(0.42 0.14 258);
   --info-bg: oklch(0.97 0.03 258);
   --info-border: oklch(0.86 0.08 258);
+
+  /* Syntax highlighting — token colors for read-only code output (SQL, …). */
+  --syntax-keyword: oklch(0.5 0.19 272);
+  --syntax-function: oklch(0.52 0.12 200);
+  --syntax-string: oklch(0.5 0.14 150);
+  --syntax-number: oklch(0.56 0.16 55);
+  --syntax-comment: oklch(0.62 0.02 60);
+  --syntax-operator: oklch(0.55 0.18 352);
+  --syntax-punctuation: oklch(0.56 0.008 60);
+
+  /* Per-category accent hues — one each, spread across the wheel. Used to tint
+     category/tool icons and tiles so the sections read at a glance. Consumed via
+     the `--cat` var set inline from the registry (see categoryAccent()). */
+  --cat-text: oklch(0.55 0.17 256); /* blue */
+  --cat-developer: oklch(0.53 0.2 300); /* violet */
+  --cat-images: oklch(0.58 0.13 200); /* cyan */
+  --cat-video: oklch(0.6 0.2 350); /* pink */
+  --cat-audio: oklch(0.62 0.17 40); /* orange */
+  --cat-files: oklch(0.6 0.14 85); /* amber */
+  --cat-pdf: oklch(0.58 0.21 22); /* red */
+  --cat-security: oklch(0.56 0.15 150); /* green */
 }
 
 /* ── Dark theme ────────────────────────────────────────────────────────── */
@@ -188,6 +209,25 @@
   --info-fg: oklch(0.85 0.12 258);
   --info-bg: oklch(0.28 0.07 258);
   --info-border: oklch(0.38 0.1 258);
+
+  /* Brighter token colors that read on the dark surfaces. */
+  --syntax-keyword: oklch(0.76 0.14 272);
+  --syntax-function: oklch(0.79 0.11 200);
+  --syntax-string: oklch(0.79 0.13 150);
+  --syntax-number: oklch(0.82 0.12 65);
+  --syntax-comment: oklch(0.58 0.015 60);
+  --syntax-operator: oklch(0.79 0.14 352);
+  --syntax-punctuation: oklch(0.62 0.01 60);
+
+  /* Lighter, slightly less saturated to read on the dark surfaces. */
+  --cat-text: oklch(0.72 0.15 256);
+  --cat-developer: oklch(0.7 0.17 300);
+  --cat-images: oklch(0.75 0.12 200);
+  --cat-video: oklch(0.75 0.17 350);
+  --cat-audio: oklch(0.76 0.15 40);
+  --cat-files: oklch(0.78 0.13 85);
+  --cat-pdf: oklch(0.7 0.18 22);
+  --cat-security: oklch(0.74 0.14 150);
 }
 
 @layer base {

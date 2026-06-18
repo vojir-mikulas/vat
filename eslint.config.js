@@ -32,6 +32,9 @@ export default defineConfig([
       // Toggle rows wrap a Radix <Switch> in a <label>; teach the rule that
       // Switch is the associated control so the nesting is recognised.
       'jsx-a11y/label-has-associated-control': ['error', { controlComponents: ['Switch'] }],
+      // Media tools preview user-transcoded audio/video that has no caption track
+      // — the rule doesn't apply to dynamically produced output.
+      'jsx-a11y/media-has-caption': 'off',
     },
   },
   {

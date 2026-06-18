@@ -3,8 +3,10 @@ import { useTranslation } from 'react-i18next'
 import { Link } from '@tanstack/react-router'
 import { ChevronRight, Loader2 } from 'lucide-react'
 
+import type { CSSProperties } from 'react'
+
 import type { Tool } from '@/lib/registry'
-import { TOOLS, getCategory } from '@/lib/registry'
+import { TOOLS, categoryAccent, getCategory } from '@/lib/registry'
 import { useToolText } from '@/lib/use-tool-text'
 import { Badge } from '@/components/ui/badge'
 import { PageContainer, PageHeader } from '@/components/layout/page'
@@ -22,6 +24,7 @@ export function ToolHost({ tool }: { tool: Tool }) {
   const text = useToolText()
   const Component = LAZY_TOOLS.get(tool.id)
   const category = getCategory(tool.category)
+  const accentStyle = { '--cat': categoryAccent(tool.category) } as CSSProperties
 
   return (
     <PageContainer>
@@ -43,7 +46,13 @@ export function ToolHost({ tool }: { tool: Tool }) {
       </nav>
 
       <PageHeader
-        icon={category ? <category.icon className="size-5" /> : <tool.icon className="size-5" />}
+        icon={
+          category ? (
+            <category.icon className="size-5 text-[var(--cat)]" style={accentStyle} />
+          ) : (
+            <tool.icon className="size-5" />
+          )
+        }
         title={text.title(tool.id)}
         description={text.description(tool.id)}
         actions={

@@ -1,8 +1,9 @@
+import type { CSSProperties } from 'react'
 import { useTranslation } from 'react-i18next'
 import { createFileRoute, Link, notFound } from '@tanstack/react-router'
 import { m } from 'motion/react'
 
-import { getCategory, toolsInCategory } from '@/lib/registry'
+import { categoryAccent, getCategory, toolsInCategory } from '@/lib/registry'
 import { useToolText } from '@/lib/use-tool-text'
 import { listContainer, listItem } from '@/lib/motion'
 import { PageContainer, PageHeader } from '@/components/layout/page'
@@ -21,11 +22,12 @@ function CategoryPage() {
   // Guaranteed valid by beforeLoad.
   const category = getCategory(categoryId)!
   const tools = toolsInCategory(category.id)
+  const accentStyle = { '--cat': categoryAccent(category.id) } as CSSProperties
 
   return (
     <PageContainer>
       <PageHeader
-        icon={<category.icon className="size-5" />}
+        icon={<category.icon className="size-5 text-[var(--cat)]" style={accentStyle} />}
         title={text.category(category.id)}
         description={text.categoryDescription(category.id)}
       />
@@ -46,9 +48,10 @@ function CategoryPage() {
               <Link
                 to="/$categoryId/$toolId"
                 params={{ categoryId: tool.category, toolId: tool.id }}
-                className="group flex h-full flex-col rounded-xl border bg-surface-1 p-5 transition-colors hover:border-border-strong hover:bg-surface-2 outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
+                style={accentStyle}
+                className="group flex h-full flex-col rounded-xl border bg-surface-1 p-5 transition-colors hover:border-[color-mix(in_oklch,var(--cat)_40%,var(--border))] hover:bg-surface-2 outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
               >
-                <span className="mb-3 grid size-10 place-items-center rounded-xl border bg-background text-foreground">
+                <span className="mb-3 grid size-10 place-items-center rounded-xl border border-[color-mix(in_oklch,var(--cat)_25%,transparent)] bg-[color-mix(in_oklch,var(--cat)_12%,transparent)] text-[var(--cat)]">
                   <tool.icon className="size-5" />
                 </span>
                 <h2 className="text-base font-semibold">{text.title(tool.id)}</h2>

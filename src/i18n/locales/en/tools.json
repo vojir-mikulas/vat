@@ -225,14 +225,11 @@
   },
   "color": {
     "title": "Color Converter",
-    "description": "Convert colors between HEX, RGB, and HSL.",
+    "description": "Convert colors between HEX, RGB, HSL, HSV, HWB, CMYK, LAB, LCH, and XYZ.",
     "inputLabel": "Color",
     "inputPlaceholder": "#0057b8, rgb(0 87 184), red…",
     "picker": "Color picker",
-    "invalid": "Not a recognized color.",
-    "hex": "HEX",
-    "rgb": "RGB",
-    "hsl": "HSL"
+    "invalid": "Not a recognized color."
   },
   "image-convert": {
     "title": "Image Converter",
@@ -245,7 +242,9 @@
     "description": "Scale an image to new dimensions.",
     "width": "Width",
     "height": "Height",
-    "lockAspect": "Lock aspect ratio"
+    "lockAspect": "Lock aspect ratio",
+    "dragHint": "Drag the corner handle to resize, or type exact dimensions below.",
+    "handle": "Resize handle"
   },
   "image-crop": {
     "title": "Crop Image",
@@ -429,5 +428,45 @@
     "signatureAlgorithm": "Signature algorithm",
     "san": "Subject alternative names",
     "fingerprint": "SHA-256 fingerprint"
+  },
+  "video-convert": {
+    "title": "Video Converter",
+    "description": "Convert video to MP4, WebM, MKV, MOV, GIF, or extract the audio.",
+    "prompt": "Drop a video or GIF here, or click to browse",
+    "format": "Output format",
+    "fps": "Frames / sec",
+    "width": "Width (px)",
+    "convert": "Convert",
+    "note": "Runs locally and re-encodes — larger videos can take a while. Some outputs depend on codecs in the bundled core."
+  },
+  "video-frame": {
+    "title": "Extract Frame",
+    "description": "Scrub a video and capture the current frame as a PNG.",
+    "prompt": "Drop a video here, or click to browse",
+    "prevFrame": "Previous frame",
+    "nextFrame": "Next frame",
+    "capture": "Capture frame",
+    "result": "Captured frame",
+    "download": "Download PNG"
+  },
+  "video-trim": {
+    "title": "Trim Video",
+    "description": "Drag the handles to select a range, then trim (no re-encode).",
+    "prompt": "Drop a video here, or click to browse",
+    "selection": "Trim range",
+    "setStart": "Start here",
+    "setEnd": "End here",
+    "trim": "Trim & download",
+    "note": "Stream-copied, so cuts snap to the nearest keyframe."
+  },
+  "audio-convert": {
+    "title": "Audio Converter",
+    "description": "Convert audio between MP3, WAV, FLAC, OGG, Opus, and AAC.",
+    "prompt": "Drop an audio file here, or click to browse",
+    "format": "Output format",
+    "bitrate": "Bitrate",
+    "kbps": "{{rate}} kbps",
+    "convert": "Convert",
+    "note": "Runs locally. Some formats depend on codecs in the bundled core."
   }
 }

@@ -2,7 +2,7 @@
 
 > A collection of useful developer and media tools that run entirely in your browser.
 >
-> **No uploads. No tracking. No bullshit.**
+> **Everything runs in your browser. No uploads, no tracking.**
 
 This document is the MVP plan: it captures **what** we're building, the **stack** we
 agreed on, the **architecture**, and the **phasing**. It is point-in-time intent — once
@@ -218,13 +218,19 @@ Status legend: `[ ]` not started · `[~]` in progress · `[x]` done.
 
 ### Phase 7 — Video / Audio (ffmpeg.wasm — heavy, gated behind lazy load + COOP/COEP)
 
-- [ ] MP4 → GIF
-- [ ] GIF → MP4
-- [ ] Extract Frame
-- [ ] Trim Video
-- [ ] MP3 → WAV
-- [ ] WAV → MP3
-- [ ] FLAC → MP3
+<!-- MP4↔GIF (and more) are covered by one Video Converter tool: any video/GIF →
+     MP4 / WebM / MKV / MOV / GIF, plus audio extraction (MP3/WAV). -->
+
+- [x] MP4 → GIF · GIF → MP4 · + WebM/MKV/MOV/audio (Video Converter)
+- [x] Extract Frame (interactive: scrub + canvas capture, no ffmpeg)
+- [x] Trim Video (interactive dual-handle scrubber)
+- [x] MP3 → WAV · WAV → MP3 · FLAC → MP3 · + OGG/Opus/AAC (Audio Converter)
+
+> **Implemented single-threaded** (`@ffmpeg/core`, self-hosted via `?url`): no
+> SharedArrayBuffer, no COOP/COEP, deploys on any static host. Multi-threaded
+> remains an optional future enhancement (see `phase-7-video-audio.md`). The ~32 MB
+> WASM core lazy-loads on first use. Transcoding is verified manually in-browser
+> (can't be unit-tested headlessly); pure arg/time helpers are unit-tested.
 
 > **Why video/audio last:** ffmpeg.wasm requires cross-origin isolation (COOP/COEP
 > headers) and a multi-MB download. We validate the registry/shell/UX on the cheap

@@ -25,13 +25,13 @@ export default function ColorTool() {
         <div className="flex items-center gap-3">
           <span
             className="size-10 shrink-0 rounded-lg border"
-            style={result.valid ? { backgroundColor: result.hex } : undefined}
+            style={result.valid ? { backgroundColor: result.swatch } : undefined}
             aria-hidden
           />
           <input
             type="color"
             aria-label={t('color.picker')}
-            value={result.valid ? result.hex : '#000000'}
+            value={result.valid ? result.swatch : '#000000'}
             onChange={(e) => setInput(e.target.value)}
             className="h-10 w-14 cursor-pointer rounded-lg border bg-surface-1 p-1"
           />
@@ -49,10 +49,10 @@ export default function ColorTool() {
       </div>
 
       {result.valid ? (
-        <div className="grid gap-4 sm:grid-cols-3">
-          <ResultField label={t('color.hex')} value={result.hex} />
-          <ResultField label={t('color.rgb')} value={result.rgb} />
-          <ResultField label={t('color.hsl')} value={result.hsl} />
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {result.formats.map((f) => (
+            <ResultField key={f.label} label={f.label} value={f.value} />
+          ))}
         </div>
       ) : null}
     </div>

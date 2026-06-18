@@ -2,7 +2,7 @@
 
 > A collection of useful developer and media tools that run entirely in your browser.
 >
-> **No uploads. No tracking. No bullshit.**
+> **Everything runs in your browser. No uploads, no tracking.**
 
 VAT is a static, client-side web app: a searchable collection of small developer and
 media tools. Every tool runs **100% in your browser** — nothing is uploaded, nothing is

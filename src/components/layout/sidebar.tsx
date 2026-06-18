@@ -3,7 +3,9 @@ import { useTranslation } from 'react-i18next'
 import { m } from 'motion/react'
 import { Link, useRouterState } from '@tanstack/react-router'
 
-import { CATEGORIES, toolsInCategory } from '@/lib/registry'
+import type { CSSProperties } from 'react'
+
+import { CATEGORIES, categoryAccent, toolsInCategory } from '@/lib/registry'
 import { useToolText } from '@/lib/use-tool-text'
 import { transition } from '@/lib/motion'
 import { cn } from '@/lib/utils'
@@ -36,9 +38,7 @@ export function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
         onClick={onNavigate}
         className="mb-2 flex items-center gap-2.5 rounded-lg px-2 py-1.5 outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
       >
-        <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-brand text-sm font-bold text-brand-foreground">
-          V
-        </span>
+        <img src="/logo.svg" alt="" aria-hidden="true" className="size-8 shrink-0 dark:invert" />
         <span className="flex min-w-0 flex-col leading-tight">
           <span className="truncate text-sm font-semibold">{t('app.name')}</span>
           <span className="truncate text-2xs text-muted-foreground">{t('app.fullName')}</span>
@@ -55,6 +55,7 @@ export function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
               key={cat.id}
               to={to}
               onClick={onNavigate}
+              style={{ '--cat': categoryAccent(cat.id) } as CSSProperties}
               className={cn(
                 'relative flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50',
                 active ? 'text-foreground' : 'text-muted-foreground hover:text-foreground',
@@ -67,7 +68,7 @@ export function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
                   className="absolute inset-0 -z-10 rounded-lg bg-surface-2"
                 />
               ) : null}
-              <cat.icon className="size-4 shrink-0" />
+              <cat.icon className="size-4 shrink-0 text-[var(--cat)]" />
               <span className="flex-1 truncate">{text.category(cat.id)}</span>
               <span className="text-2xs tabular-nums text-muted-foreground">{count}</span>
             </Link>
