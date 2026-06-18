@@ -233,5 +233,56 @@
     "hex": "HEX",
     "rgb": "RGB",
     "hsl": "HSL"
+  },
+  "image-convert": {
+    "title": "Image Converter",
+    "description": "Convert between PNG, JPEG, WebP, and AVIF.",
+    "format": "Output format",
+    "quality": "Quality"
+  },
+  "image-resize": {
+    "title": "Resize Image",
+    "description": "Scale an image to new dimensions.",
+    "width": "Width",
+    "height": "Height",
+    "lockAspect": "Lock aspect ratio"
+  },
+  "image-crop": {
+    "title": "Crop Image",
+    "description": "Crop an image to a region (pixels from the top-left).",
+    "x": "X",
+    "y": "Y",
+    "width": "Width",
+    "height": "Height"
+  },
+  "image-rotate": {
+    "title": "Rotate Image",
+    "description": "Rotate and flip an image.",
+    "left": "Rotate left",
+    "right": "Rotate right",
+    "flipH": "Flip horizontal",
+    "flipV": "Flip vertical"
+  },
+  "image-compress": {
+    "title": "Compress Image",
+    "description": "Reduce image file size with lossy compression.",
+    "format": "Format",
+    "quality": "Quality"
+  },
+  "image-exif": {
+    "title": "Remove EXIF",
+    "description": "Strip metadata (EXIF, GPS, color profile) by re-encoding.",
+    "done": "Metadata removed — the downloaded image carries no EXIF or GPS data."
+  },
+  "image-metadata": {
+    "title": "Image Metadata Viewer",
+    "description": "Inspect an image's EXIF and basic metadata.",
+    "file": "File",
+    "name": "Name",
+    "type": "Type",
+    "size": "Size",
+    "dimensions": "Dimensions",
+    "exif": "EXIF",
+    "noExif": "No EXIF metadata found in this image."
   }
 }

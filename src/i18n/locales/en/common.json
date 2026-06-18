@@ -60,6 +60,19 @@
     "description": "An unexpected error occurred while loading this tool.",
     "retry": "Reload"
   },
+  "dropzone": {
+    "imagePrompt": "Drop an image here, or click to browse",
+    "filePrompt": "Drop a file here, or click to browse",
+    "change": "Choose a different file",
+    "browse": "Browse"
+  },
+  "image": {
+    "original": "Original",
+    "result": "Result",
+    "download": "Download",
+    "dimensions": "{{width}} × {{height}}",
+    "formatUnsupported": "Your browser can't encode this format — saved as the fallback instead."
+  },
   "loading": "Loading…",
   "footer": {
     "tagline": "Runs 100% in your browser — nothing is uploaded.",

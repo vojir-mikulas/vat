@@ -182,16 +182,16 @@ Status legend: `[ ]` not started · `[~]` in progress · `[x]` done.
 
 ### Phase 3 — Images (Canvas API)
 
-- [ ] JPG → PNG
-- [ ] PNG → JPG
-- [ ] WEBP ↔ PNG
-- [ ] AVIF ↔ PNG
-- [ ] Resize
-- [ ] Crop
-- [ ] Rotate
-- [ ] Compress
-- [ ] Remove EXIF
-- [ ] Image Metadata Viewer
+<!-- The four format-pair conversions are covered by one Image Converter tool
+     (PNG/JPEG/WebP/AVIF, in any direction) rather than separate pages. -->
+
+- [x] JPG → PNG · PNG → JPG · WEBP ↔ PNG · AVIF ↔ PNG (Image Converter)
+- [x] Resize
+- [x] Crop
+- [x] Rotate (+ flip)
+- [x] Compress
+- [x] Remove EXIF
+- [x] Image Metadata Viewer
 
 ### Phase 4 — Files
 
