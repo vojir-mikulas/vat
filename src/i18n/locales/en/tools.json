@@ -456,5 +456,29 @@
     "kbps": "{{rate}} kbps",
     "convert": "Convert",
     "note": "Runs locally. Some formats depend on codecs in the bundled core."
+  },
+  "audio-editor": {
+    "title": "Audio Editor",
+    "description": "An Audacity-style editor: trim on a waveform, then normalize, fade, change speed, adjust gain, reverse, or strip silence.",
+    "prompt": "Drop an audio file here, or click to browse",
+    "play": "Play",
+    "pause": "Pause",
+    "setIn": "Set in",
+    "setOut": "Set out",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "fit": "Fit timeline",
+    "export": "Apply & export",
+    "normalize": "Normalize",
+    "normalizeHint": "Even out loudness (EBU R128)",
+    "reverse": "Reverse",
+    "trimSilence": "Trim silence",
+    "trimSilenceHint": "Strip leading & trailing quiet",
+    "gain": "Gain",
+    "db": "{{value}} dB",
+    "speed": "Speed",
+    "fadeIn": "Fade in (s)",
+    "fadeOut": "Fade out (s)",
+    "note": "Trim re-encodes for sample-accurate cuts, then applies the effect chain in one pass. Runs locally — nothing is uploaded."
   }
 }

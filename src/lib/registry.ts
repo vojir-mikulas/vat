@@ -2,6 +2,7 @@ import type { ComponentType } from 'react'
 import {
   Archive,
   ArrowRightLeft,
+  AudioWaveform,
   Binary,
   Braces,
   CalendarClock,
@@ -489,6 +490,29 @@ export const TOOLS: readonly Tool[] = [
     ],
     status: 'ready',
     load: () => import('@/tools/audio-convert/audio-convert-tool'),
+  },
+  {
+    id: 'audio-editor',
+    category: 'audio',
+    icon: AudioWaveform,
+    keywords: [
+      'audio',
+      'editor',
+      'audacity',
+      'trim',
+      'cut',
+      'fade',
+      'normalize',
+      'volume',
+      'gain',
+      'speed',
+      'reverse',
+      'silence',
+      'waveform',
+      'ffmpeg',
+    ],
+    status: 'ready',
+    load: () => import('@/tools/audio-editor/audio-editor-tool'),
   },
 ] as const
 

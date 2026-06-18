@@ -106,6 +106,83 @@ export function audioConvertArgs(
   return ['-i', input, '-c:a', codec, '-b:a', `${bitrate}k`, output]
 }
 
+// ── Audio editor ─────────────────────────────────────────────────────────────
+// A single-pass editor: trim to the selection (sample-accurate re-encode, unlike
+// the keyframe-snapped video trim) plus a composable `-af` filter chain. Output
+// format follows the input filename, so the muxer picks the codec.
+
+export interface AudioEditOptions {
+  /** Trim in/out, absolute seconds from file start. 0 / undefined = no edge. */
+  start?: number
+  end?: number
+  /** EBU R128 loudness normalize. */
+  normalize?: boolean
+  /** Gain in dB (0 = none). */
+  gainDb?: number
+  /** Fade durations in seconds (0 = none). */
+  fadeIn?: number
+  fadeOut?: number
+  /** Playback speed (1 = none); tempo only, pitch unchanged. */
+  speed?: number
+  reverse?: boolean
+  /** Strip leading/trailing silence. */
+  trimSilence?: boolean
+}
+
+// atempo only accepts 0.5–2.0, so reach further by chaining factors (e.g. 4× →
+// atempo=2,atempo=2). Returns one filter string per factor.
+export function atempoChain(speed: number): string[] {
+  let remaining = speed
+  const factors: number[] = []
+  while (remaining > 2) {
+    factors.push(2)
+    remaining /= 2
+  }
+  while (remaining < 0.5) {
+    factors.push(0.5)
+    remaining *= 2
+  }
+  factors.push(Number(remaining.toFixed(4)))
+  return factors.map((f) => `atempo=${f}`)
+}
+
+// Build the ordered `-af` filter list from the requested effects. Order matters:
+// silence-trim and tempo (which change duration) come first, then reverse, then
+// fades (timed against the post-trim/tempo length), then gain, then normalize.
+export function audioFilterChain(opts: AudioEditOptions): string[] {
+  const filters: string[] = []
+  if (opts.trimSilence) {
+    filters.push(
+      'silenceremove=start_periods=1:start_threshold=-50dB:stop_periods=1:stop_threshold=-50dB',
+    )
+  }
+  const speed = opts.speed ?? 1
+  if (speed !== 1) filters.push(...atempoChain(speed))
+  if (opts.reverse) filters.push('areverse')
+  if (opts.fadeIn && opts.fadeIn > 0) filters.push(`afade=t=in:st=0:d=${opts.fadeIn}`)
+  if (opts.fadeOut && opts.fadeOut > 0) {
+    // Fade-out start = selection length scaled by tempo, minus the fade. (Doesn't
+    // account for any silence removed upstream — an acceptable edge case.)
+    const span = Math.max(0, (opts.end ?? 0) - (opts.start ?? 0))
+    const dur = span > 0 ? span / speed : 0
+    const st = Math.max(0, Number((dur - opts.fadeOut).toFixed(3)))
+    filters.push(`afade=t=out:st=${st}:d=${opts.fadeOut}`)
+  }
+  if (opts.gainDb) filters.push(`volume=${opts.gainDb}dB`)
+  if (opts.normalize) filters.push('loudnorm')
+  return filters
+}
+
+export function audioEditArgs(input: string, output: string, opts: AudioEditOptions): string[] {
+  const args = ['-i', input]
+  if (opts.start && opts.start > 0) args.push('-ss', String(opts.start))
+  if (opts.end && opts.end > 0) args.push('-to', String(opts.end))
+  const chain = audioFilterChain(opts)
+  if (chain.length) args.push('-af', chain.join(','))
+  args.push(output)
+  return args
+}
+
 // ── Universal video converter ────────────────────────────────────────────────
 // "Anything → anything": a single target picker covering common containers, GIF,
 // and audio-only extraction. x264 uses -preset ultrafast since WASM transcoding

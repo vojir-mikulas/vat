@@ -1,8 +1,11 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  atempoChain,
   audioArgs,
   audioConvertArgs,
+  audioEditArgs,
+  audioFilterChain,
   formatTimecode,
   frameArgs,
   gifToMp4Args,
@@ -106,6 +109,49 @@ describe('ffmpeg arg builders', () => {
     expect(audioConvertArgs('in.mp3', 'out.wav', 'wav')).toEqual(['-i', 'in.mp3', 'out.wav'])
     expect(audioConvertArgs('in.wav', 'out.flac', 'flac')).toEqual(['-i', 'in.wav', 'out.flac'])
     expect(audioConvertArgs('in.wav', 'out.opus', 'opus')).toContain('libopus')
+  })
+
+  it('chains atempo factors to reach beyond 0.5–2.0', () => {
+    expect(atempoChain(1.5)).toEqual(['atempo=1.5'])
+    expect(atempoChain(0.75)).toEqual(['atempo=0.75'])
+    expect(atempoChain(4)).toEqual(['atempo=2', 'atempo=2'])
+    expect(atempoChain(0.25)).toEqual(['atempo=0.5', 'atempo=0.5'])
+  })
+
+  it('assembles the audio filter chain in order', () => {
+    expect(audioFilterChain({})).toEqual([])
+    expect(audioFilterChain({ normalize: true, gainDb: 3 })).toEqual([
+      'volume=3dB',
+      'loudnorm',
+    ])
+    expect(audioFilterChain({ speed: 1.5, reverse: true })).toEqual(['atempo=1.5', 'areverse'])
+  })
+
+  it('times the fade-out against the tempo-scaled selection length', () => {
+    expect(audioFilterChain({ start: 0, end: 10, fadeOut: 2 })).toEqual([
+      'afade=t=out:st=8:d=2',
+    ])
+    // 10s selection at 2× speed = 5s clip → fade-out starts at 3s.
+    expect(audioFilterChain({ start: 0, end: 10, speed: 2, fadeOut: 2 })).toEqual([
+      'atempo=2',
+      'afade=t=out:st=3:d=2',
+    ])
+  })
+
+  it('builds full audio-edit args with trim and filters', () => {
+    expect(audioEditArgs('in.mp3', 'out.mp3', { start: 2, end: 8, fadeIn: 1 })).toEqual([
+      '-i',
+      'in.mp3',
+      '-ss',
+      '2',
+      '-to',
+      '8',
+      '-af',
+      'afade=t=in:st=0:d=1',
+      'out.mp3',
+    ])
+    // No edits → straight passthrough re-encode, no -af.
+    expect(audioEditArgs('in.wav', 'out.wav', {})).toEqual(['-i', 'in.wav', 'out.wav'])
   })
 
   it('builds audio args with and without an encoder', () => {
