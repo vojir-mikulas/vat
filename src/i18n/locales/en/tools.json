@@ -29,5 +29,91 @@
     "inputPlaceholder": "Type or paste text…",
     "urlSafe": "URL-safe",
     "invalid": "Input is not valid Base64."
+  },
+  "url": {
+    "title": "URL Encode / Decode",
+    "description": "Percent-encode text for URLs or decode it back.",
+    "inputLabel": "Input",
+    "outputLabel": "Output",
+    "encode": "Encode",
+    "decode": "Decode",
+    "inputPlaceholder": "Type or paste text…",
+    "wholeUrl": "Encode whole URL",
+    "invalid": "Input contains malformed percent-escapes."
+  },
+  "html": {
+    "title": "HTML Encode / Decode",
+    "description": "Escape text into HTML entities or decode entities back to text.",
+    "inputLabel": "Input",
+    "outputLabel": "Output",
+    "encode": "Encode",
+    "decode": "Decode",
+    "inputPlaceholder": "Type or paste text…"
+  },
+  "jwt": {
+    "title": "JWT Decoder",
+    "description": "Decode a JSON Web Token's header and payload. Does not verify the signature.",
+    "tokenLabel": "Token",
+    "tokenPlaceholder": "Paste a JWT (header.payload.signature)…",
+    "loadSample": "Load sample",
+    "header": "Header",
+    "payload": "Payload",
+    "signature": "Signature",
+    "expired": "expired",
+    "noVerify": "The signature is not verified — this tool only decodes the token.",
+    "invalid": "Input is not a valid JWT."
+  },
+  "json": {
+    "title": "JSON Formatter",
+    "description": "Beautify or minify JSON, with validation.",
+    "inputLabel": "Input",
+    "outputLabel": "Output",
+    "inputPlaceholder": "Paste JSON…",
+    "beautify": "Beautify",
+    "minify": "Minify",
+    "indent": "Indent",
+    "spaces2": "2 spaces",
+    "spaces4": "4 spaces",
+    "tab": "Tab",
+    "invalid": "Invalid JSON."
+  },
+  "json-yaml": {
+    "title": "JSON ↔ YAML",
+    "description": "Convert between JSON and YAML in either direction.",
+    "json": "JSON",
+    "yaml": "YAML",
+    "jsonToYaml": "JSON → YAML",
+    "yamlToJson": "YAML → JSON",
+    "inputPlaceholder": "Paste here…",
+    "invalid": "Could not parse the input."
+  },
+  "markdown": {
+    "title": "Markdown Preview",
+    "description": "Write Markdown and see it rendered live (sanitized).",
+    "inputLabel": "Markdown",
+    "previewLabel": "Preview",
+    "inputPlaceholder": "Type Markdown…"
+  },
+  "diff": {
+    "title": "Diff Viewer",
+    "description": "Compare two texts line by line.",
+    "originalLabel": "Original",
+    "changedLabel": "Changed",
+    "originalPlaceholder": "Paste the original text…",
+    "changedPlaceholder": "Paste the changed text…",
+    "resultLabel": "Diff",
+    "empty": "Enter text in both panes to see the differences."
+  },
+  "lorem": {
+    "title": "Lorem Ipsum Generator",
+    "description": "Generate placeholder paragraphs, sentences, or words.",
+    "amount": "Amount",
+    "unit": "Unit",
+    "paragraphs": "Paragraphs",
+    "sentences": "Sentences",
+    "words": "Words",
+    "startWithLorem": "Start with \"Lorem ipsum\"",
+    "regenerate": "Regenerate",
+    "outputLabel": "Output"
   }
 }

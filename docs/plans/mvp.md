@@ -157,15 +157,15 @@ Status legend: `[ ]` not started · `[~]` in progress · `[x]` done.
 
 ### Phase 1 — Text (pure, zero heavy deps — ship first)
 
-- [x] Base64 Encode / Decode <!-- built in Phase 0 as the reference tool -->
-- [ ] URL Encode / Decode
-- [ ] HTML Encode / Decode
-- [ ] JWT Decoder
-- [ ] JSON Formatter
-- [ ] JSON ↔ YAML
-- [ ] Markdown Preview
-- [ ] Diff Viewer
-- [ ] Lorem Ipsum Generator
+- [x] Base64 Encode / Decode
+- [x] URL Encode / Decode
+- [x] HTML Encode / Decode
+- [x] JWT Decoder
+- [x] JSON Formatter
+- [x] JSON ↔ YAML
+- [x] Markdown Preview
+- [x] Diff Viewer
+- [x] Lorem Ipsum Generator
 
 ### Phase 2 — Developer
 
