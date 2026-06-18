@@ -44,7 +44,9 @@ export function CodePane({
 
   return (
     <div className="flex min-w-0 flex-col gap-2">
-      <div className="flex min-h-7 items-center justify-between gap-2">
+      {/* Fixed height (= the copy button's h-8) so panes with and without a
+          header button keep their textareas aligned on the same row. */}
+      <div className="flex h-8 items-center justify-between gap-2">
         <Label htmlFor={id} className="text-2xs uppercase tracking-wide text-muted-foreground">
           {label}
         </Label>

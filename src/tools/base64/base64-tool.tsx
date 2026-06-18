@@ -1,12 +1,10 @@
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { cn } from '@/lib/utils'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
-import { CopyButton } from '@/components/common/copy-button'
+import { CodePane } from '@/components/common/code-pane'
 import { decodeBase64, encodeBase64 } from './base64'
 
 type Mode = 'encode' | 'decode'
@@ -48,36 +46,15 @@ export default function Base64Tool() {
       </div>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <div className="flex flex-col gap-2">
-          <Label
-            htmlFor="b64-input"
-            className="text-2xs uppercase tracking-wide text-muted-foreground"
-          >
-            {t('base64.inputLabel')}
-          </Label>
-          <Textarea
-            id="b64-input"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder={t('base64.inputPlaceholder')}
-            className="min-h-56 resize-y font-mono text-sm"
-            autoFocus
-          />
-        </div>
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center justify-between">
-            <Label className="text-2xs uppercase tracking-wide text-muted-foreground">
-              {t('base64.outputLabel')}
-            </Label>
-            <CopyButton value={output} />
-          </div>
-          <Textarea
-            readOnly
-            value={error ?? output}
-            aria-invalid={Boolean(error)}
-            className={cn('min-h-56 resize-y font-mono text-sm', error && 'text-err')}
-          />
-        </div>
+        <CodePane
+          label={t('base64.inputLabel')}
+          value={input}
+          onChange={setInput}
+          placeholder={t('base64.inputPlaceholder')}
+          rows="lg"
+          autoFocus
+        />
+        <CodePane label={t('base64.outputLabel')} value={output} error={error} copy rows="lg" />
       </div>
     </div>
   )
