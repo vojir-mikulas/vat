@@ -169,16 +169,16 @@ Status legend: `[ ]` not started · `[~]` in progress · `[x]` done.
 
 ### Phase 2 — Developer
 
-- [ ] UUID Generator
-- [ ] NanoID Generator
-- [ ] Password Generator
-- [ ] Hash Generator (MD5 / SHA1 / SHA256 / SHA512)
-- [ ] HMAC Generator
-- [ ] Timestamp Converter (Unix ↔ Human)
-- [ ] Cron Parser
-- [ ] Regex Tester
-- [ ] SQL Formatter
-- [ ] Color Converter (HEX / RGB / HSL)
+- [x] UUID Generator
+- [x] NanoID Generator
+- [x] Password Generator
+- [x] Hash Generator (MD5 / SHA1 / SHA256 / SHA512)
+- [x] HMAC Generator
+- [x] Timestamp Converter (Unix ↔ Human)
+- [x] Cron Parser
+- [x] Regex Tester
+- [x] SQL Formatter
+- [x] Color Converter (HEX / RGB / HSL)
 
 ### Phase 3 — Images (Canvas API)
 

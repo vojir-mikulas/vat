@@ -115,5 +115,123 @@
     "startWithLorem": "Start with \"Lorem ipsum\"",
     "regenerate": "Regenerate",
     "outputLabel": "Output"
+  },
+  "uuid": {
+    "title": "UUID Generator",
+    "description": "Generate RFC-4122 UUIDs (v1, v4, v6, v7, or nil).",
+    "version": "Version",
+    "count": "Count",
+    "regenerate": "Regenerate",
+    "outputLabel": "UUIDs"
+  },
+  "nanoid": {
+    "title": "NanoID Generator",
+    "description": "Generate compact, URL-friendly unique IDs.",
+    "size": "Size",
+    "count": "Count",
+    "alphabet": "Alphabet",
+    "urlSafe": "URL-safe (default)",
+    "alphanumeric": "Alphanumeric",
+    "lowercase": "Lowercase",
+    "numbers": "Numbers",
+    "hex": "Hexadecimal",
+    "regenerate": "Regenerate",
+    "outputLabel": "IDs"
+  },
+  "password": {
+    "title": "Password Generator",
+    "description": "Generate strong random passwords in your browser.",
+    "length": "Length",
+    "lower": "Lowercase",
+    "upper": "Uppercase",
+    "digits": "Digits",
+    "symbols": "Symbols",
+    "regenerate": "Regenerate",
+    "outputLabel": "Password",
+    "entropy": "≈ {{bits}} bits of entropy",
+    "weak": "Weak",
+    "fair": "Fair",
+    "good": "Good",
+    "strong": "Strong",
+    "noSet": "Select at least one character set."
+  },
+  "hash": {
+    "title": "Hash Generator",
+    "description": "Compute MD5, SHA-1, SHA-256, and SHA-512 digests.",
+    "inputLabel": "Input",
+    "inputPlaceholder": "Type or paste text to hash…"
+  },
+  "hmac": {
+    "title": "HMAC Generator",
+    "description": "Compute a keyed hash (HMAC) of a message.",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Type or paste the message…",
+    "keyLabel": "Key",
+    "keyPlaceholder": "Secret key…",
+    "algorithm": "Algorithm",
+    "outputLabel": "HMAC"
+  },
+  "timestamp": {
+    "title": "Timestamp Converter",
+    "description": "Convert between Unix timestamps and human-readable dates.",
+    "inputLabel": "Timestamp or date",
+    "inputPlaceholder": "Unix timestamp or a date string…",
+    "now": "Now",
+    "invalid": "Could not parse that as a timestamp or date.",
+    "unixSeconds": "Unix (seconds)",
+    "unixMillis": "Unix (milliseconds)",
+    "iso": "ISO 8601",
+    "utc": "UTC",
+    "local": "Local",
+    "relative": "Relative"
+  },
+  "cron": {
+    "title": "Cron Parser",
+    "description": "Explain a cron expression and preview its next runs.",
+    "inputLabel": "Cron expression",
+    "inputPlaceholder": "e.g. */5 * * * *",
+    "description_label": "Description",
+    "nextRuns": "Next runs",
+    "invalid": "Invalid cron expression."
+  },
+  "regex": {
+    "title": "Regex Tester",
+    "description": "Test a regular expression against sample text.",
+    "patternLabel": "Pattern",
+    "patternPlaceholder": "Regular expression…",
+    "textLabel": "Test string",
+    "textPlaceholder": "Text to match against…",
+    "matches": "Matches",
+    "atIndex": "at {{index}}",
+    "groups": "groups",
+    "invalid": "Invalid regular expression.",
+    "flag": {
+      "g": "Global — find all matches",
+      "i": "Case-insensitive",
+      "m": "Multiline (^ and $ match line breaks)",
+      "s": "Dotall (. matches newlines)",
+      "u": "Unicode",
+      "y": "Sticky"
+    }
+  },
+  "sql": {
+    "title": "SQL Formatter",
+    "description": "Format and beautify SQL for many dialects.",
+    "dialect": "Dialect",
+    "inputLabel": "Input",
+    "outputLabel": "Output",
+    "inputPlaceholder": "Paste SQL…",
+    "invalid": "Could not format that SQL."
+  },
+  "color": {
+    "title": "Color Converter",
+    "description": "Convert colors between HEX, RGB, and HSL.",
+    "inputLabel": "Color",
+    "inputPlaceholder": "#0057b8, rgb(0 87 184), red…",
+    "picker": "Color picker",
+    "invalid": "Not a recognized color.",
+    "hex": "HEX",
+    "rgb": "RGB",
+    "hsl": "HSL"
   }
 }
