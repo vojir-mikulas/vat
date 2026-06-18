@@ -195,11 +195,11 @@ Status legend: `[ ]` not started · `[~]` in progress · `[x]` done.
 
 ### Phase 4 — Files
 
-- [ ] ZIP
-- [ ] Unzip
-- [ ] TAR Extract
-- [ ] File Checksum
-- [ ] Compare Files
+- [x] ZIP
+- [x] Unzip
+- [x] TAR Extract
+- [x] File Checksum
+- [x] Compare Files
 
 ### Phase 5 — PDF
 

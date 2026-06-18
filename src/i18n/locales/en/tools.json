@@ -284,5 +284,44 @@
     "dimensions": "Dimensions",
     "exif": "EXIF",
     "noExif": "No EXIF metadata found in this image."
+  },
+  "zip": {
+    "title": "Create ZIP",
+    "description": "Bundle files into a ZIP archive — entirely in your browser.",
+    "prompt": "Drop files to add to the archive, or click to browse",
+    "remove": "Remove",
+    "summary": "{{count}} files · {{size}}",
+    "download": "Download ZIP"
+  },
+  "unzip": {
+    "title": "Unzip",
+    "description": "Extract the contents of a ZIP archive.",
+    "prompt": "Drop a .zip file here, or click to browse",
+    "invalid": "Could not read that ZIP archive."
+  },
+  "tar": {
+    "title": "TAR Extract",
+    "description": "Extract files from a .tar or .tar.gz archive.",
+    "prompt": "Drop a .tar / .tar.gz file here, or click to browse",
+    "invalid": "Could not read that TAR archive."
+  },
+  "checksum": {
+    "title": "File Checksum",
+    "description": "Compute MD5, SHA-1, SHA-256, and SHA-512 of a file.",
+    "prompt": "Drop a file here, or click to browse",
+    "verify": "Verify against expected checksum",
+    "verifyPlaceholder": "Paste an expected hash to compare…",
+    "match": "Matches the {{algo}} checksum.",
+    "noMatch": "No checksum matches."
+  },
+  "file-compare": {
+    "title": "Compare Files",
+    "description": "Check whether two files are byte-for-byte identical.",
+    "fileA": "Drop the first file",
+    "fileB": "Drop the second file",
+    "identical": "Files are identical",
+    "different": "Files are different",
+    "hashA": "SHA-256 (first)",
+    "hashB": "SHA-256 (second)"
   }
 }

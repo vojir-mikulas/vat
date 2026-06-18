@@ -73,6 +73,10 @@
     "dimensions": "{{width}} × {{height}}",
     "formatUnsupported": "Your browser can't encode this format — saved as the fallback instead."
   },
+  "fileList": {
+    "entries_one": "{{count}} entry",
+    "entries_other": "{{count}} entries"
+  },
   "loading": "Loading…",
   "footer": {
     "tagline": "Runs 100% in your browser — nothing is uploaded.",
